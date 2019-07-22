@@ -9,7 +9,7 @@
 import UIKit
 
 class TableViewController: UITableViewController {
-    let itemsArray = ["one", "Two", "Three"]
+    var itemsArray = ["one", "Two", "Three"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +36,20 @@ class TableViewController: UITableViewController {
            tableView.deselectRow(at: indexPath, animated: true)
     }
 
-
+    @IBAction func addMoreButton(_ sender: UIBarButtonItem) {
+        var textField = UITextField()
+        let alert = UIAlertController(title: "Add New item", message: " ", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Add item", style: .default) { (action) in
+            self.itemsArray.append(textField.text!)
+            self.tableView.reloadData()
+        }
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "add the item name"
+            textField = alertTextField
+        }
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+    }
+    
 }
 
